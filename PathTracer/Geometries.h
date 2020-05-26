@@ -18,6 +18,7 @@ struct MaterialValue
 struct Triangle
 {
     optix::float3 v1, v2, v3, normal; // transformed
+    optix::float3 n1, n2, n3;
     MaterialValue mv;
 };
 

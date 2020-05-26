@@ -45,7 +45,8 @@ RT_PROGRAM void intersect(int primIndex)
         // Pass attributes
         attrib.intersection = P;
         attrib.wo = -ray.direction;
-        attrib.normal = nDotWo > 0 ? tri.normal : -tri.normal;
+        //attrib.normal = nDotWo > 0 ? tri.normal : -tri.normal;
+        attrib.normal = (1 - u - v) * tri.n1 + u * tri.n3 + v * tri.n2;
         attrib.mv = tri.mv;
 
         rtReportIntersection(0);
