@@ -302,9 +302,75 @@ std::shared_ptr<Scene> SceneLoader::load(std::string sceneFilename)
         {
             scene->gamma = fvalues[0]; 
         }
+        else if (cmd == "model" && readValues(s, 1, svalues)) {
+            load_obj(svalues[0], scene, mv);
+        }
     }
 
     in.close();
 
     return scene;
+}
+
+
+void SceneLoader::load_obj(std::string file, std::shared_ptr<Scene> scene, MaterialValue mv) {
+    // Attempt to open the scene file 
+    std::ifstream in(file);
+    if (!in.is_open())
+    {
+        // Unable to open the file. Check if the filename is correct.
+        throw std::runtime_error("Unable to open scene file " + file);
+    }
+
+    std::string str, cmd;
+
+    scene->vertices.clear();
+
+    // Read a line in the scene file in each iteration
+    while (std::getline(in, str))
+    {
+        // Ruled out comment and blank lines
+        if ((str.find_first_not_of(" \t\r\n") == std::string::npos)
+            || (str[0] == '#')) continue;
+
+        // Read a command
+        std::stringstream s(str);
+        s >> cmd;
+
+        // Some arrays for storing values
+        float fvalues[12];
+        int ivalues[3];
+        std::string svalues[1];
+
+
+        if (cmd == "v" && readValues(s, 3, fvalues))
+        {
+            scene->vertices.push_back(optix::make_float3(fvalues[0], fvalues[1], fvalues[2]));
+        }
+        /*else if (cmd == "vn" && readValues(s, 3, fvalues)) {
+            normals.push_back(optix::make_float3(fvalues[0], fvalues[1], fvalues[2]));
+        }*/
+        else if (cmd == "f") {
+            int vindex[3];
+            std::string tmp;
+            for (int i = 0; i < 3; i++) {
+                s >> tmp;
+                auto slash1 = tmp.find("/");
+                //auto slash2 = tmp.find("/", slash1 + 1);
+                vindex[i] = std::stoi(tmp.substr(0, slash1)) - 1;
+                //nindex[i] = std::stoi(tmp.substr(slash2 + 1)) - 1;
+            }
+
+            Triangle tri;
+            optix::Matrix4x4 trans = transStack.top();
+            tri.v1 = transformPoint(scene->vertices[vindex[0]]);
+            tri.v2 = transformPoint(scene->vertices[vindex[1]]);
+            tri.v3 = transformPoint(scene->vertices[vindex[2]]);
+            tri.normal = optix::normalize(cross(tri.v2 - tri.v1, tri.v3 - tri.v1));
+            tri.mv = mv;
+            scene->triangles.push_back(tri);
+        }
+    }
+
+    in.close();
 }

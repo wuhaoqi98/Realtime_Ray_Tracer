@@ -42,6 +42,8 @@ private:
     template <class T>
     bool readValues(std::stringstream& s, const int numvals, T* values);
 
+    void load_obj(std::string file, std::shared_ptr<Scene> scene, MaterialValue mv);
+
 public:
     std::shared_ptr<Scene> load(std::string sceneFilename);
 };
