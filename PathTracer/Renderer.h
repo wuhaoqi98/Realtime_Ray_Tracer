@@ -11,6 +11,7 @@
 #include <chrono>
 #include <iostream>
 #include <memory>
+#include <HDRLoader.h>
 
 
 // Structs to be used for passing info from host to device

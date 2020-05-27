@@ -40,6 +40,7 @@ RT_PROGRAM void generateRays()
     payload.throughput = make_float3(1.f);
     payload.depth = 0;
     payload.done = false;
+    payload.dir = dir;
     int i = 0;
 
     // Iteratively trace rays (recursion is very expensive on GPU)

@@ -306,6 +306,9 @@ std::shared_ptr<Scene> SceneLoader::load(std::string sceneFilename)
         else if (cmd == "model" && readValues(s, 1, svalues)) {
             load_obj(svalues[0], scene, mv);
         }
+        else if (cmd == "envmap" && readValues(s, 1, svalues)) {
+            scene->envmap_file = svalues[0];
+        }
     }
 
     in.close();

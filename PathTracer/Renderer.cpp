@@ -48,7 +48,14 @@ void Renderer::initPrograms()
     programs["miss"] = createProgram("Common.cu", "miss");
     programs["miss"]["backgroundColor"]->setFloat(0.f, 0.f, 0.f);
     context->setMissProgram(0, programs["miss"]);
-
+    if (scene->envmap_file != "none") {
+        programs["miss"]["hasEnvmap"]->setInt(1);
+        context["envmap"]->setTextureSampler(loadHDRTexture(context, scene->envmap_file, make_float3(1)));
+    }
+    else {
+        programs["miss"]["hasEnvmap"]->setInt(0);
+    }
+   
     // Exception program
     programs["exc"] = createProgram("Common.cu", "exception");
     context->setExceptionEnabled(RT_EXCEPTION_ALL, true);
@@ -75,6 +82,7 @@ void Renderer::initPrograms()
     programs["direct"] = createProgram("DirectLighting.cu", "monteCarlo");
     programs["pathtracer"] = createProgram("IndirectPathTracer.cu", "pathTracer");
     integrators = { "raytracer", "analyticdirect", "direct", "pathtracer" };
+
 }
 
 std::vector<unsigned char> Renderer::getResult()

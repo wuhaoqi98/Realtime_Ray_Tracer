@@ -27,6 +27,8 @@ struct Scene
     std::vector<PointLight> plights;
     std::vector<QuadLight> qlights;
 
+    std::string envmap_file = "none";
+
     int lightSamples = 1;
     bool lightStratify = false;
 
