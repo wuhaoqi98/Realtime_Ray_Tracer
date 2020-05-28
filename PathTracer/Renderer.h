@@ -83,6 +83,8 @@ public:
     */
     void applyGammaCorrection(); 
 
+    optix::TextureSampler createPlaceHolderTextureSampler(optix::Context& context); 
+
     // Some getters
     std::string getOutputFilename() { return outputFilename; }
     int getWidth() { return width; }

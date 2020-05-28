@@ -54,6 +54,7 @@ void Renderer::initPrograms()
     }
     else {
         programs["miss"]["hasEnvmap"]->setInt(0);
+        context["envmap"]->setTextureSampler(createPlaceHolderTextureSampler(context)); // oplace holder for hackward compatibility
     }
    
     // Exception program
@@ -261,3 +262,32 @@ void Renderer::applyGammaCorrection() {
 
 	gammaResultBuffer->unmap();
 }
+
+TextureSampler Renderer::createPlaceHolderTextureSampler(Context& context) {
+    // Create tex sampler and populate with default values
+    TextureSampler sampler = context->createTextureSampler();
+    sampler->setWrapMode(0, RT_WRAP_REPEAT);
+    sampler->setWrapMode(1, RT_WRAP_REPEAT);
+    sampler->setWrapMode(2, RT_WRAP_REPEAT);
+    sampler->setIndexingMode(RT_TEXTURE_INDEX_NORMALIZED_COORDINATES);
+    sampler->setReadMode(RT_TEXTURE_READ_NORMALIZED_FLOAT);
+    sampler->setMaxAnisotropy(1.0f);
+
+	// Create buffer with single texel set to default_color
+	Buffer buffer = context->createBuffer(RT_BUFFER_INPUT, RT_FORMAT_FLOAT4, 1u, 1u);
+	float* buffer_data = static_cast<float*>(buffer->map());
+	buffer_data[0] = 0.0f;
+	buffer_data[1] = 0.0f;
+	buffer_data[2] = 0.0f;
+	buffer_data[3] = 1.0f;
+	buffer->unmap();
+
+	sampler->setBuffer(buffer);
+	// Although it would be possible to use nearest filtering here, we chose linear
+	// to be consistent with the textures that have been loaded from a file. This
+	// allows OptiX to perform some optimizations.
+	sampler->setFilteringModes(RT_FILTER_LINEAR, RT_FILTER_LINEAR, RT_FILTER_NONE);
+
+	return sampler;
+}
+
