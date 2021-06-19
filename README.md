@@ -4,14 +4,14 @@ This project is a real-time ray tracer developed with Nvidia OptiX. We implement
 
 ## Rendering Results
 Indirect Path Tracer with Next Event Estimation (NEE)\
-<img src="https://github.com/wuhaoqi98/Realtime_Ray_Tracer/blob/master/output/cornellNEE.png" width="150">
+<img src="https://github.com/wuhaoqi98/Realtime_Ray_Tracer/blob/master/output/cornellNEE.png" width="300">
 
 BRDF Importance Sampling\
-![Alt text](output/cornellBRDF.png)
+<img src="https://github.com/wuhaoqi98/Realtime_Ray_Tracer/blob/master/output/cornellBRDF.png" width="300">
 
 Importance Sampling the GGX Microfacet BRDF\
-![Alt text](output/ggx.png)
+<img src="https://github.com/wuhaoqi98/Realtime_Ray_Tracer/blob/master/output/ggx.png" width="500">
 
 Multiple Importance Sampling (MIS)\
-![Alt text](output/mis.png)
-![Alt text](output/dragon.png)
+<img src="https://github.com/wuhaoqi98/Realtime_Ray_Tracer/blob/master/output/mis.png" width="300">
+<img src="https://github.com/wuhaoqi98/Realtime_Ray_Tracer/blob/master/output/dragon.png" width="300">
