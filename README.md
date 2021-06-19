@@ -13,5 +13,5 @@ Importance Sampling the GGX Microfacet BRDF\
 <img src="https://github.com/wuhaoqi98/Realtime_Ray_Tracer/blob/master/output/ggx.png" width="500">
 
 Multiple Importance Sampling (MIS)\
-<img src="https://github.com/wuhaoqi98/Realtime_Ray_Tracer/blob/master/output/mis.png" width="300">
-<img src="https://github.com/wuhaoqi98/Realtime_Ray_Tracer/blob/master/output/dragon.png" width="300">
+<img src="https://github.com/wuhaoqi98/Realtime_Ray_Tracer/blob/master/output/mis.png" width="500">
+<img src="https://github.com/wuhaoqi98/Realtime_Ray_Tracer/blob/master/output/dragon.png" width="500">
