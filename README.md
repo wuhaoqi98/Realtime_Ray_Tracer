@@ -4,7 +4,7 @@ This project is a real-time ray tracer developed with Nvidia OptiX. We implement
 
 ## Rendering Results
 Indirect Path Tracer with Next Event Estimation (NEE)\
-![Alt text](output/cornellNEE.png)
+<img src="https://github.com/wuhaoqi98/Realtime_Ray_Tracer/blob/master/output/cornellNEE.png" width="150">
 
 BRDF Importance Sampling\
 ![Alt text](output/cornellBRDF.png)
